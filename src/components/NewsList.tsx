@@ -1,6 +1,9 @@
+"use client";
+
 import { Articles } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface Props {
   filteredArticles: Articles[];
