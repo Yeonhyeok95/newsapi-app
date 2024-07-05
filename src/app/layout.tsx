@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import Navigation from "@/components/navigation";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: {
@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Navigation />
+        <Header />
         {children}
       </body>
     </html>
