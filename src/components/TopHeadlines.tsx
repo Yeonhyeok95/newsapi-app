@@ -7,12 +7,9 @@ export default async function TopHeadlines() {
   // fetch top headlines data
   const articles: Articles[] = await getTopHeadlines();
 
-  // Need to remove articles contain null value to required attributes.
-  const filteredArticles = removeTrashyData(articles);
-
   return (
     <div>
-      <NewsList filteredArticles={filteredArticles} />
+      <NewsList fetchedArticles={articles} />
     </div>
   );
 }

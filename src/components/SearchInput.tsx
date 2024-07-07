@@ -19,8 +19,7 @@ export default function SearchInput() {
     const getNews = async () => {
       try {
         const response = await fetch(
-          BASE_URL +
-            `everything?${searchParam}&pageSize=10&apiKey=${process.env.NEXT_PUBLIC_API_TOKEN_NEWS}`,
+          BASE_URL + `everything?${searchParam}&pageSize=10&apiKey=${process.env.NEXT_PUBLIC_API_TOKEN_NEWS}`,
           { cache: "no-store" }
         );
         const json = await response.json();
@@ -60,7 +59,7 @@ export default function SearchInput() {
           Search
         </button>
       </form>
-      <NewsList filteredArticles={searchedData} />
+      <NewsList fetchedArticles={searchedData} />
     </div>
   );
 }

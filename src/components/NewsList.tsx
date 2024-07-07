@@ -1,22 +1,16 @@
-"use client";
-
 import { Articles } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 interface Props {
-  filteredArticles: Articles[];
+  fetchedArticles: Articles[];
 }
 
-export default function NewsList({ filteredArticles }: Props) {
+export default function NewsList({ fetchedArticles }: Props) {
   return (
     <div className="grid-cols-1 gap-4 p-4">
-      {filteredArticles.map((article, index) => (
-        <div
-          key={`${article.title}-${index}`}
-          className="p-4 gap-4 border rounded-lg shadow-md flex"
-        >
+      {fetchedArticles.map((article, index) => (
+        <div key={`${article.title}-${index}`} className="p-4 gap-4 border rounded-lg shadow-md flex">
           <div className="w-1/5">
             <Link href={article.url}>
               <Image

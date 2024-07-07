@@ -23,48 +23,55 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
 
+const MENU_LABELS = {
+  HOME: "Home",
+  SEARCH: "Search",
+  MARKETPLACES: "Marketplaces",
+  COMPANIES: "Companies",
+};
+
 const menuItems = {
-  products: [
+  [MENU_LABELS.HOME]: [
     {
-      name: "#1 products popover",
+      name: "#1 home popover",
       description: "Get a better understanding of your traffic",
-      href: "#",
+      href: "/",
       icon: ChartPieIcon,
     },
     {
-      name: "#2 products popover",
+      name: "#2 home popover",
+      description: "Speak directly to your customers",
+      href: "/",
+      icon: CursorArrowRaysIcon,
+    },
+    {
+      name: "#3 home popover",
+      description: "Your customers’ data will be safe and secure",
+      href: "/",
+      icon: FingerPrintIcon,
+    },
+  ],
+  [MENU_LABELS.SEARCH]: [
+    {
+      name: "#1 search popover",
+      description: "Get a better understanding of your traffic",
+      href: "/search",
+      icon: ChartPieIcon,
+    },
+    {
+      name: "#2 search popover",
       description: "Speak directly to your customers",
       href: "#",
       icon: CursorArrowRaysIcon,
     },
     {
-      name: "#3 products popover",
+      name: "#3 search popover",
       description: "Your customers’ data will be safe and secure",
       href: "#",
       icon: FingerPrintIcon,
     },
   ],
-  features: [
-    {
-      name: "#1 features popover",
-      description: "Get a better understanding of your traffic",
-      href: "#",
-      icon: ChartPieIcon,
-    },
-    {
-      name: "#2 features popover",
-      description: "Speak directly to your customers",
-      href: "#",
-      icon: CursorArrowRaysIcon,
-    },
-    {
-      name: "#3 features popover",
-      description: "Your customers’ data will be safe and secure",
-      href: "#",
-      icon: FingerPrintIcon,
-    },
-  ],
-  marketplaces: [
+  [MENU_LABELS.MARKETPLACES]: [
     {
       name: "#1 marketplaces popover",
       description: "Get a better understanding of your traffic",
@@ -84,7 +91,7 @@ const menuItems = {
       icon: FingerPrintIcon,
     },
   ],
-  companies: [
+  [MENU_LABELS.COMPANIES]: [
     {
       name: "#1 companies popover",
       description: "Get a better understanding of your traffic",
@@ -140,10 +147,10 @@ export default function Example() {
           </button>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <PopoverMenu label={"Products"} items={menuItems.products} />
-          <PopoverMenu label={"Features"} items={menuItems.features} />
-          <PopoverMenu label={"Marketplaces"} items={menuItems.marketplaces} />
-          <PopoverMenu label={"Company"} items={menuItems.companies} />
+          <PopoverMenu label={MENU_LABELS.HOME} items={menuItems[MENU_LABELS.HOME]} />
+          <PopoverMenu label={MENU_LABELS.SEARCH} items={menuItems[MENU_LABELS.SEARCH]} />
+          <PopoverMenu label={MENU_LABELS.MARKETPLACES} items={menuItems[MENU_LABELS.MARKETPLACES]} />
+          <PopoverMenu label={MENU_LABELS.COMPANIES} items={menuItems[MENU_LABELS.COMPANIES]} />
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-textColor">
@@ -171,10 +178,10 @@ export default function Example() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <DisclosureGeneric items={menuItems.products} label={"Products"} />
-                <DisclosureGeneric items={menuItems.features} label={"Features"} />
-                <DisclosureGeneric items={menuItems.marketplaces} label={"Marketplaces"} />
-                <DisclosureGeneric items={menuItems.companies} label={"Company"} />
+                <DisclosureGeneric label={MENU_LABELS.HOME} items={menuItems[MENU_LABELS.HOME]} />
+                <DisclosureGeneric label={MENU_LABELS.SEARCH} items={menuItems[MENU_LABELS.SEARCH]} />
+                <DisclosureGeneric label={MENU_LABELS.MARKETPLACES} items={menuItems[MENU_LABELS.MARKETPLACES]} />
+                <DisclosureGeneric label={MENU_LABELS.COMPANIES} items={menuItems[MENU_LABELS.COMPANIES]} />
               </div>
               <div className="py-6">
                 <a
@@ -192,20 +199,19 @@ export default function Example() {
   );
 }
 
-type MenuItem = {
-  name: string;
-  description: string;
-  href: string;
-  icon: React.ForwardRefExoticComponent<
-    React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
-      title?: string;
-      titleId?: string;
-    } & React.RefAttributes<SVGSVGElement>
-  >;
-};
 type NavMenuProps = {
   label: string;
-  items: MenuItem[];
+  items: {
+    name: string;
+    description: string;
+    href: string;
+    icon: React.ForwardRefExoticComponent<
+      React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
+        title?: string;
+        titleId?: string;
+      } & React.RefAttributes<SVGSVGElement>
+    >;
+  }[];
 };
 
 function DisclosureGeneric({ label, items }: NavMenuProps) {
@@ -215,10 +221,7 @@ function DisclosureGeneric({ label, items }: NavMenuProps) {
         <>
           <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-textColor hover:bg-gray-100 hover:text-black">
             {label}
-            <ChevronDownIcon
-              className={classNames(open ? "rotate-180" : "", "h-5 w-5 flex-none")}
-              aria-hidden="true"
-            />
+            <ChevronDownIcon className={classNames(open ? "rotate-180" : "", "h-5 w-5 flex-none")} aria-hidden="true" />
           </DisclosureButton>
           <DisclosurePanel className="mt-2 space-y-2">
             {[...items, ...callsToAction].map((item) => (
@@ -257,10 +260,7 @@ function PopoverMenu({ label, items }: NavMenuProps) {
               className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
             >
               <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <item.icon
-                  className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                  aria-hidden="true"
-                />
+                <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
               </div>
               <div className="flex-auto">
                 <a href={item.href} className="block font-semibold text-gray-900">

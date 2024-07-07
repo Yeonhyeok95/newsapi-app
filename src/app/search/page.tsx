@@ -2,7 +2,7 @@
 
 import SearchInput from "@/components/SearchInput";
 
-export default function Search() {
+export default async function Search() {
   return (
     <div>
       <SearchInput />
