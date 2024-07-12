@@ -12,6 +12,7 @@ export async function getTopHeadlines() {
   );
   const json = await response.json();
 
+  // test
   // Need to remove articles contain null value to required attributes.
   const filteredArticles = removeTrashyData(json.articles);
   return filteredArticles;
